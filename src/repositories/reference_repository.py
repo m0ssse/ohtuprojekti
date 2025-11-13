@@ -1,6 +1,6 @@
-from config import db
+from src.config import db, app
 from sqlalchemy import text
-from entities.reference import Reference
+from src.entities.reference import Reference
 
 def get_references() -> list[Reference]:
     result = db.session.execute(text("SELECT * FROM reference"))
