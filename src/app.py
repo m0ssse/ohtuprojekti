@@ -5,11 +5,12 @@ from util import validate_todo
 
 @app.route("/")
 def index():
-    return render_template("index.html") 
+    return render_template("index.html")
 
-@app.route("/new_todo")
-def new():
-    return render_template("new_todo.html")
+
+@app.route("/new_reference")
+def new_reference():
+    return render_template("new_reference.html")
 
 @app.route("/create_todo", methods=["POST"])
 def todo_creation():
