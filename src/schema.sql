@@ -1,5 +1,16 @@
-CREATE TABLE todos (
-  id SERIAL PRIMARY KEY, 
-  content TEXT NOT NULL,
-  done BOOLEAN DEFAULT FALSE
+CREATE TABLE reference (
+  id SERIAL PRIMARY KEY,
+  ref_type TEXT NOT NULL,
+  author TEXT NOT NULL,
+  title TEXT NOT NULL,
+  year INT NOT NULL,
+  booktitle TEXT,
+  publisher TEXT,
+  journal TEXT,
+  pages TEXT,
+  volume TEXT,
+  edition TEXT,
+  doi TEXT,
+  chapter TEXT,
+  address TEXT
 )
