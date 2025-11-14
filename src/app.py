@@ -12,6 +12,12 @@ def index():
 def new_reference():
     return render_template("new_reference.html")
 
+@app.route("/references")
+def references():
+    all_references = get_references()
+    return render_template("references.html", references = all_references)
+    
+
 @app.route("/make_reference", methods=["POST"])
 def make_reference():
     ref_id = len(get_references()) + 1
