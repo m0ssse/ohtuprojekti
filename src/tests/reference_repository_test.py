@@ -22,7 +22,7 @@ class TestReferenceMethods(unittest.TestCase):
         self.assertEqual(references[0].year, ref.year)
 
 
-    def test_get_references_returns_correct_amout(self):
+    def test_get_references_returns_correct_amount(self):
         ref1 = Reference(id=1, ref_type="book", author="test", title="title", year=2003)
         create_reference(ref1)
         ref2 = Reference(id=2, ref_type="book", author="test2", title="title2", year=2004)
