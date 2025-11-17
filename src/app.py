@@ -6,7 +6,8 @@ from repositories.reference_repository import get_references, create_reference
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    N = len(get_references())
+    return render_template("index.html", ref_count = N)
 
 @app.route("/new_reference")
 def new_reference():
