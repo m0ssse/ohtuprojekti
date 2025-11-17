@@ -3,7 +3,17 @@
 
 {% block title %}All references{% endblock %}
 {% block content %}
+
+{% if references %}
+    {% for reference in references %}
+    <a href="/show_reference/{{ reference.id }}">    
+        {{ reference.author }} ({{ reference.year }}) <i>{{ reference.title }}</i> <br />
+    </a>
+    {% endfor %}
+{% else %}
 <p>
-    Placeholder
+    There are no references yet
 </p>
+{% endif %}
+
 {% endblock %}
