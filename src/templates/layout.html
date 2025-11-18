@@ -9,6 +9,12 @@
     <title>{% block title %}{% endblock %}</title>
   </head>
   <body>
-    {% block body %}{% endblock %}
+    <div class="nav">
+      <p>
+        <a href="/">Index</a>
+        <a href="/new_reference">New reference</a>
+      </p>
+    </div>
+  {% block content %}{% endblock %}
   </body>
 </html>
