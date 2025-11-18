@@ -2,7 +2,7 @@ from flask import redirect, render_template, request, jsonify, flash
 from db_helper import reset_db
 from config import app, test_env
 from entities.reference import Reference
-from repositories.reference_repository import get_references, create_reference
+from repositories.reference_repository import get_references, create_reference, delete_reference
 
 @app.route("/")
 def index():
@@ -35,6 +35,11 @@ def make_reference():
     create_reference(reference)
     return redirect("/")
 
+
+@app.route("/reference/<id>", methods=["DELETE"])
+def remove_reference(id):
+    delete_reference(int(id))
+    return redirect("/")
 
 #@app.route("/create_todo", methods=["POST"])
 #def todo_creation():
