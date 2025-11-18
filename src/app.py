@@ -18,7 +18,7 @@ def references():
     all_references = get_references()
     return render_template("references.html", references = all_references)
 
-@app.route("delete_reference/<int:ref_id>")
+@app.route("/delete_reference/<int:ref_id>", methods=["POST"])
 def remove_reference(ref_id):
     delete_reference(ref_id)
     return redirect("/")
