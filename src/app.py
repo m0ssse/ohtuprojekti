@@ -18,6 +18,13 @@ def references():
     all_references = get_references()
     return render_template("references.html", references = all_references)
 
+@app.route("stow_reference/<int:ref_id>")
+def show_reference(ref_id: int):
+    reference = get_reference(ref_id) #method does not exist as of yet
+    if not reference:
+        raise ValueError("Reference does not exist")
+    return render_template("show_reference.html", reference=reference)
+
 @app.route("delete_reference/<int:ref_id>")
 def remove_reference(ref_id):
     delete_reference(ref_id)
