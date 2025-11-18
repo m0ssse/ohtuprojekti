@@ -9,6 +9,14 @@ def get_references() -> list[Reference]:
     references = [Reference(**dict(row._mapping)) for row in rows]
     return references
 
+
+def get_one_reference(ref_id: int) -> Reference:
+    sql = text("SELECT * FROM reference WHERE id = :id")
+    result = db.session.execute(sql, { "id": ref_id })
+    row = result.fetchone()
+    reference = Reference(**dict(row._mapping))
+    return reference
+
 def delete_reference(ref_id: int):
     sql = text("DELETE FROM reference WHERE id = :id")
     db.session.execute(sql, { "id": ref_id })
