@@ -6,3 +6,4 @@ Muutamia vihjeitä projektin alkuun [täällä](https://github.com/ohjelmistotuo
 
 
 ! [GHA workflow badge] (https://github.com/m0ssse/ohtuprojekti/workflows/CI/badge.svg)
+
