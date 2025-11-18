@@ -1,7 +1,7 @@
 import unittest
 from entities.reference import Reference
 from db_helper import reset_db
-from repositories.reference_repository import create_reference, delete_reference, get_references
+from repositories.reference_repository import create_reference, delete_reference, get_references, get_one_reference
 from app import app
 
 class TestReferenceMethods(unittest.TestCase):
@@ -40,3 +40,15 @@ class TestReferenceMethods(unittest.TestCase):
         references = get_references()
         self.assertEqual(len(references), 1)
         self.assertEqual(references[0].id, ref2.id)
+
+    def test_get_one_reference_returns_correct_value(self):
+        ref1 = Reference(id=1, ref_type="book", author="test", title="title", year=2003)
+        create_reference(ref1)
+        ref2 = Reference(id=2, ref_type="book", author="test2", title="title2", year=2004)
+        create_reference(ref2)
+        reference = get_one_reference(ref_id=2)
+        self.assertEqual(type(reference), Reference)
+        self.assertEqual(reference.id, ref2.id)
+        self.assertEqual(reference.author, ref2.author)
+        self.assertEqual(reference.title, ref2.title)
+        self.assertEqual(reference.year, ref2.year)
