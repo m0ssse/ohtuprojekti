@@ -3,17 +3,45 @@
 
 {% block title %}All references{% endblock %}
 {% block content %}
+<h1>All references</h1>
 
 {% if references %}
-    {% for reference in references %}
-    <a href="/show_reference/{{ reference.id }}">    
-        {{ reference.author }} ({{ reference.year }}) <i>{{ reference.title }}</i> <br />
-    </a>
-    {% endfor %}
+    <ol class="references" style="list-style: none; padding-left: 0;">
+        {% for reference in references %}
+        <li style="margin-bottom: 0.5rem;">
+            [{{ loop.index }}]
+            {% if reference.ref_type == "article" %}
+                {{ reference.author }}.
+                {{ reference.title }}.
+                <em>{{ reference.journal }}</em>
+                {% if reference.volume %}, {{ reference.volume }}{% endif %}
+                {% if reference.pages %}, {{ reference.pages }}{% endif %},
+                {{ reference.year }}.
+                
+            {% elif reference.ref_type == "book" %}
+                {{ reference.author }}.
+                <em>{{ reference.title }}</em>.
+                {% if reference.publisher %} {{ reference.publisher }} {% endif %}
+                {% if reference.address %}, {{ reference.address }}{% endif %},
+                {{ reference.year }}.
+        
+            {% elif reference.ref_type == "inproceedings" %}
+                {{ reference.author }}.
+                {{ reference.title }}.
+                In <em>{{ reference.booktitle }}</em>,
+                {{ reference.year }}.
+
+            {% else %}
+                {{ reference.author }}.
+                <em>{{ reference.title }}</em>,
+                {{ reference.year }}.
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ol>
+
 {% else %}
-<p>
-    There are no references yet
-</p>
+    <p>No references found yet</p>
 {% endif %}
 
 {% endblock %}

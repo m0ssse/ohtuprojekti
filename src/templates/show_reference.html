@@ -1,9 +1,39 @@
 {% extends "layout.html" %}
 
 
-{% block title %}All references{% endblock %}
+{% block title %}Reference {{ reference.id }}{% endblock %}
+
 {% block content %}
+<h1>Reference details</h1>
+
 <p>
-    Placeholder
+{% if reference.ref_type == "article" %}
+    {{ reference.author }} ({{ reference.year }}).
+    <strong>{{ reference.title }}</strong>.
+    <em>{{ reference.journal }}</em>
+    {% if reference.volume %} {{ reference.volume }}{% endif %}
+    {% if reference.pages %} {{ reference.pages }}{% endif %}.
+
+{% elif reference.ref_type == "book" %}
+    {{ reference.author }} ({{ reference.year }}).
+    <strong>{{ reference.title }}</strong>.
+    {% if reference.edition %}{{ reference.edition }}. {% endif %}
+    {{ reference.publisher }}
+    {% if reference.address %}, {{ reference.address }}{% endif %}
+
+{% elif reference.ref_type == "inproceedings" %}
+    {{ reference.author }} ({{ reference.year }}).
+    <strong>{{ reference.title }}</strong>.
+    In <em>{{ reference.booktitle }}</em>
+    {% if reference.pages %} (pp. {{ reference.pages }}){% endif %}.
+    {% if reference.publisher %} - {{ reference.publisher }}{% endif %}
+
+{% else %}
+    {{ reference.author }} {{ reference.year }}.
+    <strong>{{ reference.title }}</strong>.
+{% endif %}
 </p>
+
+<p><a href="/references">Back to all references</a></p>
+
 {% endblock %}

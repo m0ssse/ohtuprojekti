@@ -42,6 +42,15 @@ def make_reference():
     create_reference(reference)
     return redirect("/")
 
+@app.route("/show_reference/<int:ref_id>")
+def show_reference(ref_id):
+    all_references = get_references()
+    for ref in all_references:
+        if ref.id == int(ref_id):
+            return render_template("show_reference.html", reference = ref)
+    return redirect("/")
+
+
 
 #@app.route("/create_todo", methods=["POST"])
 #def todo_creation():
