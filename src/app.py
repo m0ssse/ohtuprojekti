@@ -56,6 +56,11 @@ def show_reference(ref_id):
 
 
 
+@app.route("/reference/<id>", methods=["DELETE"])
+def remove_reference(id):
+    delete_reference(int(id))
+    return redirect("/")
+
 #@app.route("/create_todo", methods=["POST"])
 #def todo_creation():
 #    content = request.form.get("content")
