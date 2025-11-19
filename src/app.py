@@ -6,11 +6,22 @@ from repositories.reference_repository import get_references, create_reference, 
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    N = len(get_references())
+    return render_template("index.html", ref_count = N)
 
 @app.route("/new_reference")
 def new_reference():
     return render_template("new_reference.html")
+
+@app.route("/references")
+def references():
+    all_references = get_references()
+    return render_template("references.html", references = all_references)
+
+@app.route("/delete_reference/<int:ref_id>", methods=["POST"])
+def remove_reference(ref_id):
+    delete_reference(ref_id)
+    return redirect("/")
 
 @app.route("/make_reference", methods=["POST"])
 def make_reference():
@@ -34,6 +45,15 @@ def make_reference():
                         volume, edition, doi, chapter, address)
     create_reference(reference)
     return redirect("/")
+
+@app.route("/show_reference/<int:ref_id>")
+def show_reference(ref_id):
+    all_references = get_references()
+    for ref in all_references:
+        if ref.id == int(ref_id):
+            return render_template("show_reference.html", reference = ref)
+    return redirect("/")
+
 
 
 @app.route("/reference/<id>", methods=["DELETE"])

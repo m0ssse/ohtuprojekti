@@ -5,7 +5,9 @@ Library  SeleniumLibrary
 ${SERVER}     localhost:5001
 ${DELAY}      0.5 seconds
 ${HOME_URL}   http://${SERVER}
+${NEW_REFERENCE}  http://${SERVER}/new_reference
 ${RESET_URL}  http://${SERVER}/reset_db
+${LIST_REFERENCES}  http://${SERVER}/references
 ${BROWSER}    chrome
 ${HEADLESS}   false
 
@@ -26,6 +28,21 @@ Open And Configure Browser
     END
     Open Browser  browser=${BROWSER}  options=${options}
 
-Reset Todos
+Reset References
     Go To  ${RESET_URL}
 
+Create Test Reference
+    Go To  ${NEW_REFERENCE}
+    Input Text  author  Test
+    Input Text  title  Test
+    Input Text  year  1234
+    Input Text  journal  Test
+    Input Text  volume  Test
+    Input Text  publisher  Test
+    Input Text  booktitle  Test
+    Input Text  edition  Test
+    Input Text  chapter  Test
+    Input Text  pages  Test
+    Input Text  doi  Test
+    Input Text  address  Test
+    Click Button  Add refence

@@ -1,4 +1,4 @@
-from config import db
+from config import db, app
 from sqlalchemy import text
 from entities.reference import Reference
 
@@ -32,3 +32,4 @@ def create_reference(ref: Reference):
     sql = text(f"INSERT INTO reference ({columns}) VALUES ({placeholders})")
     db.session.execute(sql, fields)
     db.session.commit()
+
