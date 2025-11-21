@@ -16,9 +16,10 @@ def delete_reference(ref_id: int):
 
 
 # create_reference takes a parameter of class Reference and inserts all of it's variables
-# into the reference table.
+# into the reference table, excluding the placeholder id.
 def create_reference(ref: Reference):
     fields = vars(ref)
+    fields = {key: value for key, value in fields.items() if key != "id"}
     columns = ", ".join(fields.keys())
     placeholders = ", ".join([f":{param}" for param in fields.keys()])
     sql = text(f"INSERT INTO reference ({columns}) VALUES ({placeholders})")

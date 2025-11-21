@@ -4,42 +4,47 @@ from config import app, test_env
 from entities.reference import Reference
 from repositories.reference_repository import get_references, create_reference, delete_reference
 
-@app.route("/")
-def index():
-    return render_template("index.html")
-
-@app.route("/new_reference")
-def new_reference():
-    return render_template("new_reference.html")
-
-@app.route("/make_reference", methods=["POST"])
-def make_reference():
-    ref_id = len(get_references()) + 1
-    ref_type = request.form["ref_type"]
-    author = request.form["author"]
-    title = request.form["title"]
-    year = request.form["year"]
-    journal = request.form["journal"]
-    volume = request.form["volume"]
-    journal = request.form["journal"]
-    publisher = request.form["publisher"]
-    booktitle = request.form["booktitle"]
-    edition = request.form["edition"]
-    chapter = request.form["chapter"]
-    pages = request.form["pages"]
-    doi = request.form["doi"]
-    address = request.form["address"]
-    reference = Reference(ref_id, ref_type, author, title, year, 
-                        booktitle, publisher, journal, pages, 
-                        volume, edition, doi, chapter, address)
-    create_reference(reference)
-    return redirect("/")
+if not hasattr(app, '_routes_initialized'):
+    app._routes_initialized = True
+    
+    @app.route("/")
+    def index():
+        return render_template("index.html")
 
 
-@app.route("/reference/<id>", methods=["DELETE"])
-def remove_reference(id):
-    delete_reference(int(id))
-    return redirect("/")
+    @app.route("/new_reference")
+    def new_reference():
+        return render_template("new_reference.html")
+
+
+    @app.route("/make_reference", methods=["POST"])
+    def make_reference():
+        ref_id = len(get_references()) + 1
+        ref_type = request.form["ref_type"]
+        author = request.form["author"]
+        title = request.form["title"]
+        year = request.form["year"]
+        journal = request.form["journal"]
+        volume = request.form["volume"]
+        journal = request.form["journal"]
+        publisher = request.form["publisher"]
+        booktitle = request.form["booktitle"]
+        edition = request.form["edition"]
+        chapter = request.form["chapter"]
+        pages = request.form["pages"]
+        doi = request.form["doi"]
+        address = request.form["address"]
+        reference = Reference(ref_id, ref_type, author, title, year, 
+                            booktitle, publisher, journal, pages, 
+                            volume, edition, doi, chapter, address)
+        create_reference(reference)
+        return redirect("/")
+
+
+    @app.route("/reference/<id>", methods=["DELETE"])
+    def remove_reference(id):
+        delete_reference(int(id))
+        return redirect("/")
 
 #@app.route("/create_todo", methods=["POST"])
 #def todo_creation():
@@ -58,9 +63,8 @@ def remove_reference(id):
 #    set_done(todo_id)
 #    return redirect("/")
 
-# testausta varten oleva reitti
-if test_env:
-    @app.route("/reset_db")
-    def reset_database():
-        reset_db()
-        return jsonify({ 'message': "db reset" })
+    if test_env:
+        @app.route("/reset_db")
+        def reset_database():
+            reset_db()
+            return jsonify({ 'message': "db reset" })
