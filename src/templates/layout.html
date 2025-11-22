@@ -16,6 +16,11 @@
         <a href="/references">All references</a>
       </p>
     </div>
+  {% for message in get_flashed_messages() %}
+    <div class="info">
+      <b>{{ message }}</b>
+    </div>
+  {% endfor %}
   {% block content %}{% endblock %}
   </body>
 </html>
