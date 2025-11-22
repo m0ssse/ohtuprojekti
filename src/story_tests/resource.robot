@@ -45,4 +45,4 @@ Create Test Reference
     Input Text  pages  Test
     Input Text  doi  Test
     Input Text  address  Test
-    Click Button  Add refence
+    Click Button  Add reference
