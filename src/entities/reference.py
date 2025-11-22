@@ -1,7 +1,9 @@
+# pylint: disable=redefined-builtin
+
 class Reference:
     def __init__(self, id,
         ref_type, author, title,
-        year, booktitle=None, publisher=None, 
+        year, booktitle=None, publisher=None,
         journal=None, pages=None, volume=None,
         edition=None, doi=None, chapter=None, address=None):
 
@@ -12,7 +14,7 @@ class Reference:
         self.year = year
         self.booktitle = booktitle
         self.publisher = publisher
-        self.journal = journal 
+        self.journal = journal
         self.pages = pages
         self.volume = volume
         self.edition = edition
