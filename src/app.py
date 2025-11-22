@@ -3,6 +3,7 @@ from db_helper import reset_db
 from config import app, test_env
 from entities.reference import Reference
 from repositories.reference_repository import get_references, create_reference, delete_reference
+from util import validate_reference
 
 @app.route("/")
 def index():
@@ -25,6 +26,10 @@ def remove_reference(ref_id):
 
 @app.route("/make_reference", methods=["POST"])
 def make_reference():
+    form_ok, missing_fields = validate_reference(request.form)
+    if not form_ok:
+        flash(f"The following required fields are missing: {', '.join(missing_fields)}")
+        return redirect("/new_reference")
     ref_id = len(get_references()) + 1
     ref_type = request.form["ref_type"]
     author = request.form["author"]

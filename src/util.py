@@ -1,9 +1,15 @@
+from constants import REQUIRED_FIELDS
+
 class UserInputError(Exception):
     pass
 
-def validate_todo(content):
-    if len(content) < 5:
-        raise UserInputError("Todo content length must be greater than 4")
+def validate_reference(form_contents, required_fields=REQUIRED_FIELDS) -> tuple:
+    missing = []
+    form_ok = True
+    ref_type = form_contents["ref_type"]
+    for field in required_fields[ref_type]:
+        if field not in form_contents:
+            form_ok = False
+            missing.append(field)
+    return form_ok, missing
 
-    if len(content) > 100:
-          raise UserInputError("Todo content length must be smaller than 100")
