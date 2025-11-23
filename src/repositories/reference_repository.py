@@ -27,6 +27,7 @@ def delete_reference(ref_id: int):
 # into the reference table.
 def create_reference(ref: Reference):
     fields = vars(ref)
+    fields = { key: value for key, value in fields.items() if key != "id" }
     columns = ", ".join(fields.keys())
     placeholders = ", ".join([f":{param}" for param in fields.keys()])
     sql = text(f"INSERT INTO reference ({columns}) VALUES ({placeholders})")
