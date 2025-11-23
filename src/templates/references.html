@@ -8,7 +8,7 @@
 {% if references %}
     <ol class="references" style="list-style: none; padding-left: 0;">
         {% for reference in references %}
-        <li style="margin-bottom: 0.5rem;"><a id="ref_link" href="/show_reference/{{reference.id}}">
+        <li class="ref_item"><a id="ref_link" href="/show_reference/{{reference.id}}">
             [{{ loop.index }}]
             {% if reference.ref_type == "article" %}
                 {{ reference.author }}.
