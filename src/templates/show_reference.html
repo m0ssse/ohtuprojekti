@@ -17,16 +17,13 @@
 {% elif reference.ref_type == "book" %}
     {{ reference.author }} ({{ reference.year }}).
     <strong>{{ reference.title }}</strong>.
-    {% if reference.edition %}{{ reference.edition }}. {% endif %}
-    {{ reference.publisher }}
-    {% if reference.address %}, {{ reference.address }}{% endif %}
+    {{ reference.publisher }}.
 
 {% elif reference.ref_type == "inproceedings" %}
     {{ reference.author }} ({{ reference.year }}).
     <strong>{{ reference.title }}</strong>.
-    In <em>{{ reference.booktitle }}</em>
-    {% if reference.pages %} (pp. {{ reference.pages }}){% endif %}.
-    {% if reference.publisher %} - {{ reference.publisher }}{% endif %}
+    In <em>{{ reference.booktitle }}</em>.
+
 
 {% else %}
     {{ reference.author }} {{ reference.year }}.

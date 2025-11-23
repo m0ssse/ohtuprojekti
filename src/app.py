@@ -35,14 +35,14 @@ def make_reference():
     journal = request.form["journal"]
     publisher = request.form["publisher"]
     booktitle = request.form["booktitle"]
-    edition = request.form["edition"]
-    chapter = request.form["chapter"]
+    #edition = request.form["edition"]
+    #chapter = request.form["chapter"]
     pages = request.form["pages"]
-    doi = request.form["doi"]
-    address = request.form["address"]
+    #doi = request.form["doi"]
+    #address = request.form["address"]
     reference = Reference(ref_id, ref_type, author, title, year, 
                         booktitle, publisher, journal, pages, 
-                        volume, edition, doi, chapter, address)
+                        volume) #edition, doi, chapter, address)
     create_reference(reference)
     return redirect("/")
 
