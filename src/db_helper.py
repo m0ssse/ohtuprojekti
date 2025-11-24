@@ -9,6 +9,7 @@ def reset_db():
     print("Clearing contents from table reference")
     sql = text("DELETE FROM reference")
     db.session.execute(sql)
+    db.session.execute(text("ALTER SEQUENCE reference_id_seq RESTART WITH 1"))
     db.session.commit()
 
 def tables():
