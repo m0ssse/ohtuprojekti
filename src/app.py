@@ -1,13 +1,14 @@
-from flask import redirect, render_template, request, jsonify, flash
+from flask import redirect, render_template, request, jsonify
 from db_helper import reset_db
 from config import app, test_env
 from entities.reference import Reference
-from repositories.reference_repository import get_references, create_reference, delete_reference
+from repositories.reference_repository import (
+    get_references, create_reference, delete_reference)
 
 @app.route("/")
 def index():
-    N = len(get_references())
-    return render_template("index.html", ref_count = N)
+    n = len(get_references())
+    return render_template("index.html", ref_count = n)
 
 @app.route("/new_reference")
 def new_reference():
@@ -26,23 +27,14 @@ def remove_reference(ref_id):
 @app.route("/make_reference", methods=["POST"])
 def make_reference():
     ref_id = len(get_references()) + 1
-    ref_type = request.form["ref_type"]
-    author = request.form["author"]
-    title = request.form["title"]
-    year = request.form["year"]
-    journal = request.form["journal"]
-    volume = request.form["volume"]
-    journal = request.form["journal"]
-    publisher = request.form["publisher"]
-    booktitle = request.form["booktitle"]
-    #edition = request.form["edition"]
-    #chapter = request.form["chapter"]
-    pages = request.form["pages"]
-    #doi = request.form["doi"]
-    #address = request.form["address"]
-    reference = Reference(ref_id, ref_type, author, title, year, 
-                        booktitle, publisher, journal, pages, 
-                        volume) #edition, doi, chapter, address)
+    fields = [
+        "ref_type", "author", "title", "year", "journal", "volume",
+        "publisher", "booktitle", "edition", "chapter", "pages",
+        "doi", "address"
+    ]
+    data = {f: request.form.get(f) for f in fields}
+
+    reference = Reference(ref_id, **data)
     create_reference(reference)
     return redirect("/")
 
