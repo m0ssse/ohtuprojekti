@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="/static/main.css">
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -9,6 +10,18 @@
     <title>{% block title %}{% endblock %}</title>
   </head>
   <body>
-    {% block body %}{% endblock %}
+    <div class="nav" id="site_navigation">
+      <p>
+        <a class="nav_link" href="/">Index</a>
+        <a class="nav_link" href="/new_reference">New reference</a>
+        <a class="nav_link" href="/references">All references</a>
+      </p>
+    </div>
+  {% for message in get_flashed_messages() %}
+    <div class="info">
+      <b>{{ message }}</b>
+    </div>
+  {% endfor %}
+  {% block content %}{% endblock %}
   </body>
 </html>
