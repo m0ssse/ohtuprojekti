@@ -36,13 +36,5 @@ Create Test Reference
     Input Text  author  Test
     Input Text  title  Test
     Input Text  year  1234
-    Input Text  journal  Test
-    Input Text  volume  Test
     Input Text  publisher  Test
-    Input Text  booktitle  Test
-    Input Text  edition  Test
-    Input Text  chapter  Test
-    Input Text  pages  Test
-    Input Text  doi  Test
-    Input Text  address  Test
     Click Button  Add reference

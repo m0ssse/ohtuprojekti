@@ -6,9 +6,9 @@
 <h1>All references</h1>
 
 {% if references %}
-    <ol class="references" style="list-style: none; padding-left: 0;">
+    <ol class="references">
         {% for reference in references %}
-        <li style="margin-bottom: 0.5rem;"><a id="ref_link" href="/show_reference/{{reference.id}}">
+        <li class="ref_item"><a id="ref_link" href="/show_reference/{{reference.id}}">
             [{{ loop.index }}]
             {% if reference.ref_type == "article" %}
                 {{ reference.author }}.
@@ -21,8 +21,7 @@
             {% elif reference.ref_type == "book" %}
                 {{ reference.author }}.
                 <em>{{ reference.title }}</em>.
-                {% if reference.publisher %} {{ reference.publisher }} {% endif %}
-                {% if reference.address %}, {{ reference.address }}{% endif %},
+                {% if reference.publisher %} {{ reference.publisher }} {% endif %},
                 {{ reference.year }}.
         
             {% elif reference.ref_type == "inproceedings" %}
