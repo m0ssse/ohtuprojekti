@@ -1,9 +1,4 @@
-## Ohtu miniprojekti boilerplate
-![GHA workflow badge](https://github.com/m0ssse/ohtuprojekti/workflows/CI/badge.svg)
-
-Lue [täältä](https://ohjelmistotuotanto-hy.github.io/flask/) lisää.
-
-Muutamia vihjeitä projektin alkuun [täällä](https://github.com/ohjelmistotuotanto-hy/miniprojekti-boilerplate/blob/main/misc/ohjeita.md).
+## Backlog
 
 Linkki [Backlogiin](https://docs.google.com/spreadsheets/d/1ydUu7JQKO1yzsdHjvVuIUvUM6oZylWIb34DH69oyu7k/edit?gid=0#gid=0).
 
