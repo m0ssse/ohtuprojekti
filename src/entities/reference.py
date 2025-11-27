@@ -21,3 +21,27 @@ class Reference:
         self.doi = doi
         self.chapter = chapter
         self.address = address
+
+    def get_alias(self) -> str:
+        return f"{self.author[:3]}{self.title[:3]}"
+
+    def check_attribute(self, attribute: str) -> bool:
+        if attribute.startswith("__"):
+            return False
+        if attribute in ("id", "ref_type"):
+            return False
+        if callable(getattr(self, attribute)):
+            return False
+        return getattr(self, attribute) is not None
+
+    def get_bibtex(self) -> str:
+        res = f"@{self.ref_type}"+"{"+f"{self.get_alias()}"
+        for attribute in dir(self):
+            if not self.check_attribute(attribute):
+                continue
+            if attribute=="year":
+                res+=f",\nyear = {self.year}"
+            else:
+                res+=f",\n{attribute} = '{getattr(self, attribute)}'"
+        res+="\n}"
+        return res
