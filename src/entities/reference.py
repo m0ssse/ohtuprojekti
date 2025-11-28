@@ -1,8 +1,8 @@
 # pylint: disable=redefined-builtin
 
 class Reference:
-    def __init__(self, id,
-        ref_type, author, title,
+    def __init__(self, id, ref_type,
+        citation_key, author, title,
         year, booktitle=None, publisher=None,
         journal=None, pages=None, volume=None,
         edition=None, doi=None, chapter=None, address=None):
@@ -21,3 +21,32 @@ class Reference:
         self.doi = doi
         self.chapter = chapter
         self.address = address
+
+        if citation_key:
+            self.citation_key = citation_key
+        else:
+            self.citation_key = self.get_citation_key()
+
+    def get_citation_key(self) -> str:
+        return f"{self.author[:3]}{self.title[:3]}"
+
+    def check_attribute(self, attribute: str) -> bool:
+        if attribute.startswith("__"): #filter out built-ins
+            return False
+        if attribute in ("id", "ref_type"):
+            return False
+        if callable(getattr(self, attribute)): #filter out methods
+            return False
+        return getattr(self, attribute) is not None
+
+    def get_bibtex(self) -> str:
+        res = f"@{self.ref_type}"+"{"+f"{self.citation_key}"
+        for attribute in dir(self):
+            if not self.check_attribute(attribute):
+                continue
+            if attribute=="year":
+                res+=f",\nyear = {self.year}"
+            else:
+                res+=f",\n{attribute} = '{getattr(self, attribute)}'"
+        res+="\n}"
+        return res

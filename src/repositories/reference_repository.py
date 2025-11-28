@@ -2,6 +2,12 @@ from sqlalchemy import text
 from config import db
 from entities.reference import Reference
 
+class DeleteFailureError(Exception):
+    pass
+
+class SelectFailureError(Exception):
+    pass
+
 def get_references() -> list[Reference]:
     result = db.session.execute(text("SELECT * FROM reference"))
     rows = result.fetchall()
@@ -14,14 +20,18 @@ def get_one_reference(ref_id: int) -> Reference:
     sql = text("SELECT * FROM reference WHERE id = :id")
     result = db.session.execute(sql, { "id": ref_id })
     row = result.fetchone()
+    if row is None:
+        raise SelectFailureError(f"Failed to get a reference with id {ref_id}")
     reference = Reference(**dict(row._mapping))
     return reference
 
+
 def delete_reference(ref_id: int):
     sql = text("DELETE FROM reference WHERE id = :id")
-    db.session.execute(sql, { "id": ref_id })
+    result = db.session.execute(sql, { "id": ref_id })
     db.session.commit()
-
+    if result.rowcount == 0:
+        raise DeleteFailureError(f"Failed to delete a reference with id {ref_id}")
 
 # create_reference takes a parameter of class Reference and inserts all of it's variables
 # into the reference table.

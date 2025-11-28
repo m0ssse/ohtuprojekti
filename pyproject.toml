@@ -1,9 +1,10 @@
 [project]
-name = "miniprojekti-boilerplate"
+name = "reference-manager"
 version = "0.1.0"
 description = ""
 authors = [
-    {name = "Matti Luukkainen",email = "mluukkai@iki.fi"}
+    {name = "Iivari van Uden",email = "iivarvan@ad.helsinki.fi"},
+
 ]
 license = {text = "MIT"}
 requires-python = "^3.12"
