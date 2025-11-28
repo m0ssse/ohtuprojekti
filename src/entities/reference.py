@@ -37,7 +37,7 @@ class Reference:
             return False
         if callable(getattr(self, attribute)): #filter out methods
             return False
-        return getattr(self, attribute) is not None 
+        return getattr(self, attribute) is not None
 
     def get_bibtex(self) -> str:
         res = f"@{self.ref_type}"+"{"+f"{self.citation_key}"

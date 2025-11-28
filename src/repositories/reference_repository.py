@@ -1,5 +1,4 @@
 from sqlalchemy import text
-from sqlalchemy.exc import SQLAlchemyError
 from config import db
 from entities.reference import Reference
 
@@ -22,7 +21,7 @@ def get_one_reference(ref_id: int) -> Reference:
     result = db.session.execute(sql, { "id": ref_id })
     row = result.fetchone()
     if row is None:
-        raise SelectFailureError(f"Failed to get a reference with id {ref_id}") 
+        raise SelectFailureError(f"Failed to get a reference with id {ref_id}")
     reference = Reference(**dict(row._mapping))
     return reference
 
@@ -32,7 +31,7 @@ def delete_reference(ref_id: int):
     result = db.session.execute(sql, { "id": ref_id })
     db.session.commit()
     if result.rowcount == 0:
-        raise DeleteFailureError(f"Failed to delete a reference with id {ref_id}")     
+        raise DeleteFailureError(f"Failed to delete a reference with id {ref_id}")
 
 # create_reference takes a parameter of class Reference and inserts all of it's variables
 # into the reference table.

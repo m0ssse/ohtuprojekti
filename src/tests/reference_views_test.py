@@ -43,6 +43,7 @@ class TestReferenceViews(unittest.TestCase):
         ref = Reference(
             id=1,
             ref_type="article",
+            citation_key='key',
             author="Author A",
             title="Title T",
             year=2010,
