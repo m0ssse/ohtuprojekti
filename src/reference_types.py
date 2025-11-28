@@ -6,4 +6,4 @@ REFERENCE_FIELDS = {
 
 
 def get_supported_fields(ref_type:str):
-    return REFERENCE_FIELDS.get(ref_type, ["author", "title", "year"])
+    return REFERENCE_FIELDS.get(ref_type, ["citation_key", "author", "title", "year"])
