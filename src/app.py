@@ -20,6 +20,11 @@ def references():
     all_references = get_references()
     return render_template("references.html", references = all_references)
 
+@app.route("/bibtex")
+def bibtex_listing():
+    references_to_show = get_references()
+    return render_template("bibtex.html", references = references_to_show)
+
 @app.route("/delete_reference/<int:ref_id>", methods=["POST"])
 def remove_reference(ref_id):
     delete_reference(ref_id)

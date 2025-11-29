@@ -45,3 +45,7 @@ class Reference:
                 res+=f",\n{attribute} = '{getattr(self, attribute)}'"
         res+="\n}"
         return res
+
+if __name__=="__main__":
+    myref = Reference(0, "book", "author", "title", 1234)
+    print(myref.get_bibtex())
