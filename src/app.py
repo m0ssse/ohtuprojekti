@@ -6,6 +6,13 @@ from repositories.reference_repository import (
     get_references, create_reference, get_one_reference,
     delete_reference, DeleteFailureError, SelectFailureError)
 from util import validate_reference
+import markupsafe
+
+@app.template_filter()
+def show_lines(content):
+    content = str(markupsafe.escape(content))
+    content = content.replace("\n", "<br />")
+    return markupsafe.Markup(content)
 
 @app.route("/")
 def index():

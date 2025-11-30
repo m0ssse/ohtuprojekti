@@ -33,11 +33,11 @@ class Reference:
     def check_attribute(self, attribute: str) -> bool:
         if attribute.startswith("__"): #filter out built-ins
             return False
-        if attribute in ("id", "ref_type"):
+        if attribute in ("id", "ref_type", "citation_key"):
             return False
         if callable(getattr(self, attribute)): #filter out methods
             return False
-        return getattr(self, attribute) is not None
+        return bool(getattr(self, attribute))
 
     def get_bibtex(self) -> str:
         res = f"@{self.ref_type}"+"{"+f"{self.citation_key}"
@@ -50,7 +50,3 @@ class Reference:
                 res+=f",\n{attribute} = '{getattr(self, attribute)}'"
         res+="\n}"
         return res
-
-if __name__=="__main__":
-    myref = Reference(0, "book", "author", "title", 1234)
-    print(myref.get_bibtex())
