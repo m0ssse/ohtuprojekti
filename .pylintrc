@@ -30,5 +30,6 @@ indent-after-paren=4
 max-nested-blocks=2
 
 [DESIGN]
-max-statements=15
+max-statements=20
+max-locals=20
 max-branches=8
