@@ -2,7 +2,7 @@
 
 class Reference:
     def __init__(self, id, ref_type, author,
-        title, year, citation_key=None, 
+        title, year, citation_key=None,
         booktitle=None, publisher=None, journal=None,
         pages=None, volume=None, edition=None,
         doi=None, chapter=None, address=None):
@@ -26,10 +26,9 @@ class Reference:
     def get_citation_key(self, citation_key: str) -> str:
         if citation_key:
             return citation_key
-        else:
-            surname = self.author.lower().split()[0]
-            new_citation_key = f"{surname}{self.year}"
-            return new_citation_key
+        surname = self.author.lower().split()[0]
+        new_citation_key = f"{surname}{self.year}"
+        return new_citation_key
 
     def check_attribute(self, attribute: str) -> bool:
         if attribute.startswith("__"): #filter out built-ins
