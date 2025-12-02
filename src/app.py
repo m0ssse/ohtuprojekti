@@ -38,7 +38,7 @@ def make_reference():
         return redirect("/new_reference")
     ref_id = len(get_references()) + 1
     fields = [
-        "ref_type", "citation_key", "author", "title", "year", "journal", "volume",
+        "ref_type", "author", "title", "year", "citation_key", "journal", "volume",
         "publisher", "booktitle", "edition", "chapter", "pages",
         "doi", "address"
     ]

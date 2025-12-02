@@ -9,7 +9,7 @@ class TestReferenceMethods(unittest.TestCase):
         self.app_context.push()
         reset_db()
         fields = [
-        "ref_type", "author", "title", "year", "journal", "volume",
+        "ref_type", "author", "title", "year", "citation_key", "journal", "volume",
         "publisher", "booktitle", "edition", "chapter", "pages",
         "doi", "address"
     ]
