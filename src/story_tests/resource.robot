@@ -8,6 +8,7 @@ ${HOME_URL}   http://${SERVER}
 ${NEW_REFERENCE}  http://${SERVER}/new_reference
 ${RESET_URL}  http://${SERVER}/reset_db
 ${LIST_REFERENCES}  http://${SERVER}/references
+${BIBTEX_URL}  http://${SERVER}/bibtex
 ${BROWSER}    chrome
 ${HEADLESS}   false
 

@@ -1,4 +1,5 @@
 from flask import redirect, render_template, request, jsonify, flash
+import markupsafe
 from db_helper import reset_db
 from config import app, test_env
 from entities.reference import Reference
@@ -6,6 +7,12 @@ from repositories.reference_repository import (
     get_references, create_reference, get_one_reference,
     delete_reference, DeleteFailureError, SelectFailureError)
 from util import validate_reference
+
+@app.template_filter()
+def show_lines(content):
+    content = str(markupsafe.escape(content))
+    content = content.replace("\n", "<br />")
+    return markupsafe.Markup(content)
 
 @app.route("/")
 def index():
@@ -20,6 +27,11 @@ def new_reference():
 def references():
     all_references = get_references()
     return render_template("references.html", references = all_references)
+
+@app.route("/bibtex")
+def bibtex_listing():
+    references_to_show = get_references()
+    return render_template("bibtex.html", references = references_to_show)
 
 @app.route("/delete_reference/<int:ref_id>", methods=["POST"])
 def remove_reference(ref_id):
