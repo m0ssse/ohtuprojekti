@@ -1,11 +1,11 @@
 # pylint: disable=redefined-builtin
 
 class Reference:
-    def __init__(self, id, ref_type,
-        citation_key, author, title,
-        year, booktitle=None, publisher=None,
-        journal=None, pages=None, volume=None,
-        edition=None, doi=None, chapter=None, address=None):
+    def __init__(self, id, ref_type, author,
+        title, year, citation_key=None, 
+        booktitle=None, publisher=None, journal=None,
+        pages=None, volume=None, edition=None,
+        doi=None, chapter=None, address=None):
 
         self.id = id
         self.ref_type = ref_type
@@ -21,14 +21,15 @@ class Reference:
         self.doi = doi
         self.chapter = chapter
         self.address = address
+        self.citation_key = self.get_citation_key(citation_key)
 
+    def get_citation_key(self, citation_key: str) -> str:
         if citation_key:
-            self.citation_key = citation_key
+            return citation_key
         else:
-            self.citation_key = self.get_citation_key()
-
-    def get_citation_key(self) -> str:
-        return f"{self.author[:3]}{self.title[:3]}"
+            surname = self.author.lower().split()[0]
+            new_citation_key = f"{surname}{self.year}"
+            return new_citation_key
 
     def check_attribute(self, attribute: str) -> bool:
         if attribute.startswith("__"): #filter out built-ins

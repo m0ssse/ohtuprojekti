@@ -52,3 +52,7 @@ class TestReferenceMethods(unittest.TestCase):
         self.assertEqual(reference.author, ref2.author)
         self.assertEqual(reference.title, ref2.title)
         self.assertEqual(reference.year, ref2.year)
+
+    def test_proper_citation_key_generated(self):
+        ref = Reference(id=1, ref_type="book", author="Smith B", title="title", year=2004)
+        self.assertEqual(ref.citation_key, "smith2004")
