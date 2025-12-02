@@ -9,10 +9,10 @@ class TestReferenceMethods(unittest.TestCase):
         self.app_context.push()
         reset_db()
         fields = [
-        "ref_type", "author", "title", "year", "citation_key", "journal", "volume",
-        "publisher", "booktitle", "edition", "chapter", "pages",
-        "doi", "address"
-    ]
+        "ref_type", "author", "title", "year", "citation_key", "publisher", "booktitle", 
+        "journal", "pages", "volume", "edition",
+        "doi", "chapter", "address"
+        ]   
         self.data = {field: "" for field in fields}
         self.data["ref_type"] = "book"
         
