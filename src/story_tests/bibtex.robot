@@ -13,7 +13,7 @@ BibTeX for a single reference is shown correctly
     Input Text  year  1337
     Click Button  Add reference
     Go To  ${BIBTEX_URL}
-    Page Should Contain  @book{auttit,\nauthor = 'author_test',\ntitle = 'title_test',\nyear = 1337\n}"""
+    Page Should Contain  @book{auttit,\nauthor = 'author_test',\ntitle = 'title_test',\nyear = 1337\n}
 
 BibTeX for two references is shown correctly
     Go To  ${NEW_REFERENCE}
