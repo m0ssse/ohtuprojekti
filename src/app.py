@@ -1,4 +1,5 @@
 from flask import redirect, render_template, request, jsonify, flash
+import markupsafe
 from db_helper import reset_db
 from config import app, test_env
 from entities.reference import Reference
@@ -6,7 +7,6 @@ from repositories.reference_repository import (
     get_references, create_reference, get_one_reference,
     delete_reference, DeleteFailureError, SelectFailureError)
 from util import validate_reference
-import markupsafe
 
 @app.template_filter()
 def show_lines(content):
