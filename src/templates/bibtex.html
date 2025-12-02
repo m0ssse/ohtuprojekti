@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+
+{% block title %}All references{% endblock %}
+{% block content %}
+    {% for reference in references %}
+        {{ reference.get_bibtex() | show_lines}}
+        </br></br>
+    {% endfor %}
+{% endblock %}
