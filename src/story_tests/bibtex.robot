@@ -29,3 +29,4 @@ BibTeX for two references is shown correctly
     Click Button  Add reference
 
     Go To  ${BIBTEX_URL}
+    Page Should Contain  @book{testes,author = 'test_author',title = 'test_title',year = 1338}
