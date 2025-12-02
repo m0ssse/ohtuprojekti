@@ -1,6 +1,7 @@
 ![GHA workflow badge](https://github.com/m0ssse/ohtuprojekti/workflows/CI/badge.svg)
 [![codecov](https://codecov.io/gh/m0ssse/ohtuprojekti/graph/badge.svg?token=BB5WMG5ITO)](https://codecov.io/gh/m0ssse/ohtuprojekti)
 
+
 ## Backlog
 
 Linkki [Backlogiin](https://docs.google.com/spreadsheets/d/1ydUu7JQKO1yzsdHjvVuIUvUM6oZylWIb34DH69oyu7k/edit?gid=0#gid=0).
