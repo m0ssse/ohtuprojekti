@@ -4,3 +4,4 @@ __pycache__
 report.html
 output.xml
 log.html
+coverage.xml

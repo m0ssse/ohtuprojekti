@@ -3,7 +3,8 @@ from db_helper import reset_db
 from config import app, test_env
 from entities.reference import Reference
 from repositories.reference_repository import (
-    get_references, create_reference, delete_reference)
+    get_references, create_reference, get_one_reference,
+    delete_reference, DeleteFailureError, SelectFailureError)
 from util import validate_reference
 
 @app.route("/")
@@ -22,8 +23,12 @@ def references():
 
 @app.route("/delete_reference/<int:ref_id>", methods=["POST"])
 def remove_reference(ref_id):
-    delete_reference(ref_id)
-    return redirect("/")
+    try:
+        delete_reference(ref_id)
+        return redirect("/")
+    except DeleteFailureError:
+        flash(f"id ${ref_id} does not exist in the database")
+        return redirect("/")
 
 @app.route("/make_reference", methods=["POST"])
 def make_reference():
@@ -45,28 +50,13 @@ def make_reference():
 
 @app.route("/show_reference/<int:ref_id>")
 def show_reference(ref_id):
-    all_references = get_references()
-    for ref in all_references:
-        if ref.id == int(ref_id):
-            return render_template("show_reference.html", reference = ref)
-    return redirect("/")
+    try:
+        reference = get_one_reference(ref_id)
+        return render_template("show_reference.html", reference = reference)
+    except SelectFailureError:
+        flash(f"id {ref_id} does not exist in the database")
+        return redirect("/")
 
-#@app.route("/create_todo", methods=["POST"])
-#def todo_creation():
-#    content = request.form.get("content")
-
-#    try:
-#        validate_todo(content)
-#        create_todo(content)
-#        return redirect("/")
-#    except Exception as error:
-#        flash(str(error))
-#        return  redirect("/new_todo")
-
-#@app.route("/toggle_todo/<todo_id>", methods=["POST"])
-#def toggle_todo(todo_id):
-#    set_done(todo_id)
-#    return redirect("/")
 
 # testausta varten oleva reitti
 if test_env:
