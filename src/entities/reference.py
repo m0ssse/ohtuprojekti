@@ -45,8 +45,8 @@ class Reference:
             if not self.check_attribute(attribute):
                 continue
             if attribute=="year":
-                res+=f",\nyear = {self.year}"
+                res+=f",year = {self.year}"
             else:
-                res+=f",\n{attribute} = '{getattr(self, attribute)}'"
-        res+="\n}"
+                res+=f",{attribute} = '{getattr(self, attribute)}'"
+        res+="}"
         return res
