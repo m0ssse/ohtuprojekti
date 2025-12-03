@@ -1,5 +1,5 @@
 # pylint: disable=redefined-builtin
-
+from reference_types import get_supported_fields
 class Reference:
     def __init__(self, id, ref_type, author,
         title, year, citation_key=None,
@@ -40,13 +40,18 @@ class Reference:
         return bool(getattr(self, attribute))
 
     def get_bibtex(self) -> str:
-        res = f"@{self.ref_type}"+"{"+f"{self.citation_key}"
-        for attribute in dir(self):
-            if not self.check_attribute(attribute):
+        fields = get_supported_fields(self.ref_type)
+        res = f"@{self.ref_type}{{{self.citation_key}"
+
+        for field in fields:
+            value = getattr(self, field, None)
+            if value is None:
                 continue
-            if attribute=="year":
-                res+=f",year = {self.year}"
+
+            if field == "year":
+                res += f",year = {value}"
             else:
-                res+=f",{attribute} = '{getattr(self, attribute)}'"
-        res+="}"
+                res += f",{field} = '{value}'"
+
+        res += "}"
         return res
