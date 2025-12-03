@@ -137,7 +137,7 @@ def update_reference(ref_id):
             break
 
     fields = [
-        "ref_type", "author", "title", "year", "journal", "volume",
+        "ref_type", "author", "title", "year", "citation_key", "journal", "volume",
         "publisher", "booktitle", "edition", "chapter", "pages",
         "doi", "address"
     ]
