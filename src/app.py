@@ -1,9 +1,50 @@
 from flask import redirect, render_template, request, jsonify
+from datetime import datetime
 from db_helper import reset_db
 from config import app, test_env
 from entities.reference import Reference
 from repositories.reference_repository import (
     get_references, create_reference, delete_reference)
+
+def validate_reference_data(data, original=None):
+    errors = {}
+
+    if not data.get("author") or data["author"].strip() == "":
+        errors["author"] = "Author is required."
+
+    if not data.get("title") or data["title"].strip() == "":
+        errors["title"] = "Title is required."
+    
+    year = data.get("year")
+    if not year:
+        errors["year"] = "Year is required."
+    else:
+        try:
+            year_int = int(year)
+            current_year = datetime.now().year
+            if year_int < 0 or year_int > current_year:
+                errors["year"] = f"Year must be between 0 and {current_year}."
+        except ValueError:
+            errors["year"] = "Year must be a valid integer."
+
+    ref_type = data.get("ref_type")
+
+    if original and ref_type == "article":
+        if original.journal and (not data.get("journal") or data["journal"].strip() == ""):
+            errors["journal"] = "Journal is required for articles."
+        if original.volume and (not data.get("volume") or data["volume"].strip() == ""):
+            errors["volume"] = "Volume is required for articles."
+
+    if original and ref_type == "book":
+        if original.publisher and (not data.get("publisher") or data["publisher"].strip() == ""):
+            errors["publisher"] = "Publisher is required for books."
+
+    if original and ref_type == "inproceedings":
+        if original.booktitle and (not data.get("booktitle") or data["booktitle"].strip() == ""):
+            errors["booktitle"] = "Booktitle is required for inproceedings."
+    
+    return errors
+    
 
 @app.route("/")
 def index():
@@ -38,13 +79,48 @@ def make_reference():
     create_reference(reference)
     return redirect("/")
 
+
+
+@app.route("/edit_reference/<int:ref_id>")
+def edit_reference_form(ref_id):
+    all_references = get_references()
+    for ref in all_references:
+        if ref.id == int(ref_id):
+            return render_template("edit_reference.html", reference = ref, errors={})
+    return redirect("/")
+
+@app.route("/update_reference/<int:ref_id>", methods=["POST"])
+def update_reference(ref_id):
+    original = None
+    for ref in get_references():
+        if ref.id == int(ref_id):
+            original = ref
+            break
+
+    fields = [
+        "ref_type", "author", "title", "year", "journal", "volume",
+        "publisher", "booktitle", "edition", "chapter", "pages",
+        "doi", "address"
+    ]
+    data = {f: request.form.get(f) for f in fields}
+    errors = validate_reference_data(data, original)
+    if errors:
+        temp_reference = Reference(ref_id, **data)
+        return render_template("edit_reference.html", reference = temp_reference, errors=errors)
+
+    updated_reference = Reference(ref_id, **data)
+    delete_reference(ref_id)
+    create_reference(updated_reference)
+    return redirect("/")
+
+
 @app.route("/show_reference/<int:ref_id>")
 def show_reference(ref_id):
     all_references = get_references()
     for ref in all_references:
         if ref.id == int(ref_id):
             return render_template("show_reference.html", reference = ref)
-    return redirect("/")
+    return redirect(f"/show_reference/{ref_id}")
 
 #@app.route("/create_todo", methods=["POST"])
 #def todo_creation():
