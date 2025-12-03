@@ -9,6 +9,7 @@ from repositories.reference_repository import (
     delete_reference, DeleteFailureError, SelectFailureError)
 from util import validate_reference
 
+# pylint: disable=too-many-branches,too-many-statements,too-many-nested-blocks
 @app.template_filter()
 def show_lines(content):
     content = str(markupsafe.escape(content))
@@ -23,7 +24,7 @@ def validate_reference_data(data, original=None):
 
     if not data.get("title") or data["title"].strip() == "":
         errors["title"] = "Title is required."
-    
+
     year = data.get("year")
     if not year:
         errors["year"] = "Year is required."
@@ -32,28 +33,44 @@ def validate_reference_data(data, original=None):
             year_int = int(year)
             current_year = datetime.now().year
             if year_int < 0 or year_int > current_year:
-                errors["year"] = f"Year must be between 0 and {current_year}."
+                errors["year"] = (
+                    f"Year must be between 0 and {current_year}."
+                )
         except ValueError:
             errors["year"] = "Year must be a valid integer."
 
     ref_type = data.get("ref_type")
 
     if original and ref_type == "article":
-        if original.journal and (not data.get("journal") or data["journal"].strip() == ""):
+        if (
+            original.journal
+            and (not data.get("journal") or data["journal"].strip() == "")
+        ):
             errors["journal"] = "Journal is required for articles."
-        if original.volume and (not data.get("volume") or data["volume"].strip() == ""):
+        if (
+            original.volume
+            and (not data.get("volume") or data["volume"].strip() == "")
+        ):
             errors["volume"] = "Volume is required for articles."
 
     if original and ref_type == "book":
-        if original.publisher and (not data.get("publisher") or data["publisher"].strip() == ""):
+        if (
+            original.publisher
+            and (not data.get("publisher") or data["publisher"].strip() == "")
+        ):
             errors["publisher"] = "Publisher is required for books."
 
     if original and ref_type == "inproceedings":
-        if original.booktitle and (not data.get("booktitle") or data["booktitle"].strip() == ""):
-            errors["booktitle"] = "Booktitle is required for inproceedings."
-    
+        if (
+            original.booktitle
+            and (not data.get("booktitle") or data["booktitle"].strip() == "")
+        ):
+            errors["booktitle"] = (
+                "Booktitle is required for inproceedings."
+            )
+
     return errors
-    
+
 
 @app.route("/")
 def index():
@@ -128,7 +145,8 @@ def update_reference(ref_id):
     errors = validate_reference_data(data, original)
     if errors:
         temp_reference = Reference(ref_id, **data)
-        return render_template("edit_reference.html", reference = temp_reference, errors=errors)
+        return render_template("edit_reference.html",
+                                reference = temp_reference, errors=errors)
 
     updated_reference = Reference(ref_id, **data)
     delete_reference(ref_id)
