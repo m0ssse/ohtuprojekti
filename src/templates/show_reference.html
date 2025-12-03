@@ -5,31 +5,38 @@
 
 {% block content %}
 <h1>Reference details</h1>
-
 <p>
+    Reference type: {{ reference.ref_type }}
+</p>
+<p>
+    <strong>name: {{ reference.title }}</strong> 
+</p>
+<p>
+    Citation Key: {{ reference.citation_key }}
+</p>
+<p>
+    Year published: ({{ reference.year }})
+</p>
+<p>
+    Author: {{ reference.author }}
+</p>
+
+<br>
+
+<em><p>
 {% if reference.ref_type == "article" %}
-    {{ reference.author }} ({{ reference.year }}).
-    <strong>{{ reference.title }}</strong>.
-    <em>{{ reference.journal }}</em>
-    {% if reference.volume %} {{ reference.volume }}{% endif %}
-    {% if reference.pages %} {{ reference.pages }}{% endif %}.
+    Journal: {{ reference.journal }}
+    {% if reference.volume %} Volume: {{ reference.volume }}{% endif %}
+    {% if reference.pages %} Pages: {{ reference.pages }}{% endif %}.
 
 {% elif reference.ref_type == "book" %}
-    {{ reference.author }} ({{ reference.year }}).
-    <strong>{{ reference.title }}</strong>.
-    {{ reference.publisher }}.
+    Publisher: {{ reference.publisher }}.
 
 {% elif reference.ref_type == "inproceedings" %}
-    {{ reference.author }} ({{ reference.year }}).
-    <strong>{{ reference.title }}</strong>.
-    In <em>{{ reference.booktitle }}</em>.
-
-
-{% else %}
-    {{ reference.author }} {{ reference.year }}.
-    <strong>{{ reference.title }}</strong>.
+    IBooktitle: <em>{{ reference.booktitle }}</em>.
 {% endif %}
-</p>
+</p></em>
+<p>Reference {{ reference.id }}</p>
 
 <p><a href="/references">Back to all references</a></p>
 

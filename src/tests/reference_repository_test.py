@@ -57,6 +57,10 @@ class TestReferenceMethods(unittest.TestCase):
         self.assertEqual(reference.title, ref2.title)
         self.assertEqual(reference.year, ref2.year)
 
+    def test_proper_citation_key_generated(self):
+        ref = Reference(id=1, ref_type="book", author="Smith B", title="title", year=2004)
+        self.assertEqual(ref.citation_key, "smith2004")
+
     def test_invalid_delete_fails_and_raises_exception(self):
         ref1 = Reference(id=1, citation_key='key', ref_type="book", author="test", title="title", year=2003)
         create_reference(ref1)
