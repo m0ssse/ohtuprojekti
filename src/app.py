@@ -1,10 +1,20 @@
 from flask import redirect, render_template, request, jsonify
 from datetime import datetime
+from flask import redirect, render_template, request, jsonify, flash
+import markupsafe
 from db_helper import reset_db
 from config import app, test_env
 from entities.reference import Reference
 from repositories.reference_repository import (
-    get_references, create_reference, delete_reference)
+    get_references, create_reference, get_one_reference,
+    delete_reference, DeleteFailureError, SelectFailureError)
+from util import validate_reference
+
+@app.template_filter()
+def show_lines(content):
+    content = str(markupsafe.escape(content))
+    content = content.replace("\n", "<br />")
+    return markupsafe.Markup(content)
 
 def validate_reference_data(data, original=None):
     errors = {}
@@ -60,16 +70,29 @@ def references():
     all_references = get_references()
     return render_template("references.html", references = all_references)
 
+@app.route("/bibtex")
+def bibtex_listing():
+    references_to_show = get_references()
+    return render_template("bibtex.html", references = references_to_show)
+
 @app.route("/delete_reference/<int:ref_id>", methods=["POST"])
 def remove_reference(ref_id):
-    delete_reference(ref_id)
-    return redirect("/")
+    try:
+        delete_reference(ref_id)
+        return redirect("/")
+    except DeleteFailureError:
+        flash(f"id ${ref_id} does not exist in the database")
+        return redirect("/")
 
 @app.route("/make_reference", methods=["POST"])
 def make_reference():
+    form_ok, missing_fields = validate_reference(request.form)
+    if not form_ok:
+        flash(f"The following required fields are missing: {', '.join(missing_fields)}")
+        return redirect("/new_reference")
     ref_id = len(get_references()) + 1
     fields = [
-        "ref_type", "author", "title", "year", "journal", "volume",
+        "ref_type", "citation_key", "author", "title", "year", "journal", "volume",
         "publisher", "booktitle", "edition", "chapter", "pages",
         "doi", "address"
     ]
@@ -116,28 +139,14 @@ def update_reference(ref_id):
 
 @app.route("/show_reference/<int:ref_id>")
 def show_reference(ref_id):
-    all_references = get_references()
-    for ref in all_references:
-        if ref.id == int(ref_id):
-            return render_template("show_reference.html", reference = ref)
-    return redirect(f"/show_reference/{ref_id}")
+    try:
+        reference = get_one_reference(ref_id)
+        return render_template("show_reference.html", reference = reference)
+    except SelectFailureError:
+        flash(f"id {ref_id} does not exist in the database")
+        return redirect("/")
 
-#@app.route("/create_todo", methods=["POST"])
-#def todo_creation():
-#    content = request.form.get("content")
 
-#    try:
-#        validate_todo(content)
-#        create_todo(content)
-#        return redirect("/")
-#    except Exception as error:
-#        flash(str(error))
-#        return  redirect("/new_todo")
-
-#@app.route("/toggle_todo/<todo_id>", methods=["POST"])
-#def toggle_todo(todo_id):
-#    set_done(todo_id)
-#    return redirect("/")
 
 # testausta varten oleva reitti
 if test_env:
