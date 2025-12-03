@@ -50,9 +50,9 @@ def make_reference():
         return redirect("/new_reference")
     ref_id = len(get_references()) + 1
     fields = [
-        "ref_type", "citation_key", "author", "title", "year", "journal", "volume",
-        "publisher", "booktitle", "edition", "chapter", "pages",
-        "doi", "address"
+        "ref_type", "author", "title", "year", "citation_key", "publisher", "booktitle", 
+        "journal", "pages", "volume", "edition",
+        "doi", "chapter", "address"
     ]
     data = {f: request.form.get(f) for f in fields}
 
