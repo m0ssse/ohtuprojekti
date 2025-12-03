@@ -1,4 +1,3 @@
-from flask import redirect, render_template, request, jsonify
 from datetime import datetime
 from flask import redirect, render_template, request, jsonify, flash
 import markupsafe
