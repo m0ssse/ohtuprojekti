@@ -45,7 +45,7 @@ class Reference:
 
         for field in fields:
             value = getattr(self, field, None)
-            if value is None:
+            if not value:
                 continue
 
             if field == "year":
