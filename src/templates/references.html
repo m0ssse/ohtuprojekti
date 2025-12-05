@@ -6,6 +6,20 @@
 <h1>All references</h1>
 
 {% if references %}
+    <form action="/references" method="POST">
+        <label for="order">Order by:</label>
+        <select id="criteria" name="criterion">
+            <option value="author">Author</option>
+            <option value="title">Title</option>
+            <option value="year">Year</option>
+        </select>
+        <select id="directions" name="direction">
+            <option value="asc">↑</option>
+            <option value="desc">↓</option>
+        </select>
+        <input type="submit" value="Order" />
+    </form>
+
     <ol class="references">
         {% for reference in references %}
         <li class="ref_item"><a id="ref_link" href="/show_reference/{{reference.id}}">
