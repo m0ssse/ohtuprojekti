@@ -16,3 +16,12 @@ Sprintti 2:
 |  kaikki storyt valmiiksi  |  työnjako  |    |
 |  Demo meni hyvin  |  ei muistiinpanoja dailysta  |    |
 |    |  Katsoimme liian myöhään arvostelukriteerit  |    |
+
+
+Sprintti 3:
+
+| Glad | Sad | Mad |
+|------|-----|-----|
+|  Kaikki tehty  |  Skeeman muutos aiheutti hämminkiä  |  Tietokone temppuili ennen demoa  |
+|  Selkeämpi työnjako  |  Tarvittiin loppukiri  |    |
+|  Hyvä loppukiri  |    |    |

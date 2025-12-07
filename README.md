@@ -26,3 +26,7 @@ Userstory on valmis kun sen vaatimukset täytetään omalla branchillä, joku mu
 
 ### Sprint 2
 ![Burndown](src/images/Burndown_Sprint_2.png)
+
+
+### Sprint 3
+![Burndown](src/images/Burndown_Sprint_3.png)
