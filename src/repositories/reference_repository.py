@@ -1,6 +1,7 @@
 from sqlalchemy import text
 from config import db
 from entities.reference import Reference
+from util import valid_criteria
 
 class DeleteFailureError(Exception):
     pass
@@ -8,8 +9,10 @@ class DeleteFailureError(Exception):
 class SelectFailureError(Exception):
     pass
 
-def get_references() -> list[Reference]:
-    result = db.session.execute(text("SELECT * FROM reference"))
+def get_references(sorting_criteria = "author") -> list[Reference]:
+    if not valid_criteria(sorting_criteria):
+        sorting_criteria = "author"
+    result = db.session.execute(text(f"SELECT * FROM reference ORDER BY {sorting_criteria}"))
     rows = result.fetchall()
     # rows are casted into Reference objects
     references = [Reference(**dict(row._mapping)) for row in rows]

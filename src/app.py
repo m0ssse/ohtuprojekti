@@ -18,7 +18,9 @@ def new_reference():
 
 @app.route("/references")
 def references():
-    all_references = get_references()
+    # TODO Change sorting criteria based on html input
+    sorting_criteria = "author"
+    all_references = get_references(sorting_criteria = sorting_criteria)
     return render_template("references.html", references = all_references)
 
 @app.route("/delete_reference/<int:ref_id>", methods=["POST"])
