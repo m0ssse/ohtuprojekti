@@ -9,10 +9,11 @@ class DeleteFailureError(Exception):
 class SelectFailureError(Exception):
     pass
 
-def get_references(sorting_criteria = "author") -> list[Reference]:
-    if not valid_criteria(sorting_criteria):
-        sorting_criteria = "author"
-    result = db.session.execute(text(f"SELECT * FROM reference ORDER BY {sorting_criteria}"))
+def get_references(order_field = "author", order_dir = "ASC") -> list[Reference]:
+    if not valid_criteria(order_field, order_dir):
+        order_field = "author"
+        order_dir = "ASC"
+    result = db.session.execute(text(f"SELECT * FROM reference ORDER BY {order_field} {order_dir}"))
     rows = result.fetchall()
     # rows are casted into Reference objects
     references = [Reference(**dict(row._mapping)) for row in rows]

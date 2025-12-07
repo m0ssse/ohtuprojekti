@@ -14,7 +14,9 @@ def validate_reference(form_contents) -> tuple:
     return form_ok, missing
 
 
-def valid_criteria(sorting_criteria: str) -> bool:
-    if sorting_criteria in ["author", "year", "title", "citation_key"]:
-        return True
-    return False
+def valid_criteria(order_label: str, order_dir) -> bool:
+    if order_label not in ["author", "year", "title", "citation_key"]:
+        return False
+    if order_dir not in ["ASC", "DESC"]:
+        return False
+    return True
