@@ -6,18 +6,21 @@
 <h1>All references</h1>
 
 {% if references %}
-    <form action="/references" method="POST">
-        <label for="order">Order by:</label>
-        <select id="criteria" name="criterion">
+    <form action="/references" method="GET">
+        <label for="sort-by">Sort by</label>
+        <select id="sort-by" name="sort-by">
             <option value="author">Author</option>
             <option value="title">Title</option>
             <option value="year">Year</option>
         </select>
-        <select id="directions" name="direction">
-            <option value="asc">↑</option>
-            <option value="desc">↓</option>
+
+        <label for="direction">Direction</label>
+        <select id="direction" name="direction">
+            <option value="asc">Ascending ↑</option>
+            <option value="desc">Descending ↓</option>
         </select>
-        <input type="submit" value="Order" />
+
+        <button type="submit">Apply</button>
     </form>
 
     <ol class="references">
