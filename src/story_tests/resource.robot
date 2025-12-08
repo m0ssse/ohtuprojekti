@@ -39,3 +39,19 @@ Create Test Reference
     Input Text  year  1234
     Input Text  publisher  Test
     Click Button  Add reference
+
+Create Test Reference2
+    Go To  ${NEW_REFERENCE}
+    Input Text  author  2Test
+    Input Text  title  Test
+    Input Text  year  4321
+    Input Text  publisher  Test
+    Click Button  Add reference
+
+Create Test Reference3
+    Go To  ${NEW_REFERENCE}
+    Input Text  author  3Test
+    Input Text  title  Test
+    Input Text  year  4112
+    Input Text  publisher  Test
+    Click Button  Add reference
