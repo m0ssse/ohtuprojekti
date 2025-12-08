@@ -91,13 +91,14 @@ def bibtex_listing():
     references_to_show = get_references()
     return render_template("bibtex.html", references = references_to_show)
 
-@app.route("/download_bibtext", methods=["GET"])
+@app.route("/download_bibtext", methods=["POST"])
 def bibtex_download():
-    if request.method == 'GET':
+    if request.method == 'POST':
+        filename = request.form["bibtex-filename"]
         file = "\n\n".join(r.get_bibtex() for r in get_references())
         response = make_response(file)
         response.headers["Content-Type"] = "application/x-bibtex"
-        response.headers["Content-Disposition"] = "attachment; filename=references.bib"
+        response.headers["Content-Disposition"] = f"attachment; filename={filename}"
     return response
 
 
