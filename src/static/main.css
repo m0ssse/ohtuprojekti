@@ -1,32 +1,73 @@
 body {
-  margin: auto;
+  margin: 40px auto;
   max-width: 50em;
   font-family: sans-serif;
-  background-color: lightblue;
+  background-color: #e8f2fc;
+  color: #1f2933;
+}
+
+.main {
+    max-width: 50cm;
+    margin: 40px auto;
+    padding: 24px 20px;
+    background-color: white;
+    border-radius: 16px;
+
 }
 
 .nav {
-    background-color: lightgray;
-    max-width: fit-content;
-    padding-left: 5px;
-    padding-right: 5px;
-    border: 1px solid black;
-    border-radius: 10px;
+    display: inline-flex;
+    gap: 4px;
+    padding: 4px;
+    background-color: #d6e4ff;
+    border-radius: 999px;
+    margin-bottom: 24px;
 }
 
 .nav_link {
-    margin-left: 3px;
-    margin-right: 3px;
-    background-color: white;
+    padding: 6px 14px;
+    border-radius: 999px;
+    text-decoration: none;
+    color: #1565C0;
+    font-size: 0.9rem;
 }
 
-.ref_item {
-    background-color: lightgrey;
-    margin-bottom: 0.5rem;
-    border: 1px solid black;
+.nav_link:hover {
+    background-color: #c3d5ff;
+}
+
+.nav_link_active {
+    background-color: #1565C0;
+    color: white;
 }
 
 .references {
     list-style: none;
     padding-left: 0;
+    margin: 0;
+}
+
+.ref_item {
+    background-color: white;
+    margin-bottom: 0.75rem;
+    border: 1px solid #d0e2ff;
+    border-radius: 8px;
+    padding: 10px 12px;
+}
+
+.btn-primary {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #1565C0;
+    color: white;
+    text-decoration: none;
+    border-radius: 999px;
+    border: none;
+    font-size: 0.95rem;
+    cursor: pointer;
+    margin-top: 8px;
+}
+
+.btn-primary:hover {
+    background-color: #0d4f96;
 }
