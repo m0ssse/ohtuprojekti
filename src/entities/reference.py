@@ -51,7 +51,7 @@ class Reference:
             if field == "year":
                 res += f",year = {value}"
             else:
-                res += f",{field} = '{value}'"
+                res += f",{field} = {value}"
 
         res += "}"
         return res

@@ -1,5 +1,5 @@
 from datetime import datetime
-from flask import redirect, render_template, request, jsonify, flash
+from flask import redirect, render_template, request, jsonify, flash, make_response
 import markupsafe
 from db_helper import reset_db
 from config import app, test_env
@@ -90,6 +90,16 @@ def references():
 def bibtex_listing():
     references_to_show = get_references()
     return render_template("bibtex.html", references = references_to_show)
+
+@app.route("/download_bibtext", methods=["GET"])
+def bibtex_download():
+    if request.method == 'GET':
+        file = "\n\n".join(r.get_bibtex() for r in get_references())
+        response = make_response(file)
+        response.headers["Content-Type"] = "application/x-bibtex"
+        response.headers["Content-Disposition"] = "attachment; filename=references.bib"
+    return response
+
 
 @app.route("/delete_reference/<int:ref_id>", methods=["POST"])
 def remove_reference(ref_id):
