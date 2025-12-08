@@ -54,7 +54,17 @@
             {% endif %}
         </a></li>
         {% endfor %}
-        <a href="/bibtex">Generate BibTeX file</a>
+        <a href="/bibtex">Show BibTeX file</a>
+        <br>
+        <br>
+        <form action="/download_bibtext", method="POST">
+            <input type="submit" value="Download bibtext file"/>
+            <div>
+                <label for="bibtex-filename">File name</label>
+                <input type="text" name="bibtex-filename" id="bibtex-filename" value ="references.bib">
+            </div>
+        </form>
+        
     </ol>
 
 {% else %}
