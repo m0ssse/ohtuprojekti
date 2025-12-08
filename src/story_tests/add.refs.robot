@@ -13,8 +13,6 @@ Adding and deleting multiple references doesn't cause database errors
     Go To  ${LIST_REFERENCES}
     Element Text Should Be  css=ol.references li a  [1] Test. Test. Test , 1234.
     Click Link  ref_link
-    Wait Until Page Contains  Reference 1    timeout=5s
-    Page Should Contain  Reference 1
     Click Button  Delete reference
     Title Should Be  Reference manager
     Page Should Contain  There are currently 1 references in the database

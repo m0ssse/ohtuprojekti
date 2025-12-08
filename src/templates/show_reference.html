@@ -36,11 +36,14 @@
     IBooktitle: <em>{{ reference.booktitle }}</em>.
 {% endif %}
 </p></em>
-<p>Reference {{ reference.id }}</p>
 
 <p><a href="/references">Back to all references</a></p>
 
 <form action="/delete_reference/{{ reference.id }}", method="POST">
     <input type="submit" value="Delete reference"/>
 </form>
+<form action="/edit_reference/{{ reference.id }}">
+    <input type="submit" value="Edit reference"/>
+</form>
+<!--<a href="/edit_reference/{{ reference.id }}">Edit reference</a> -->
 {% endblock %}
