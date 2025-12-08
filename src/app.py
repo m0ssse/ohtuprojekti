@@ -83,7 +83,10 @@ def new_reference():
 
 @app.route("/references")
 def references():
-    all_references = get_references()
+    order_field = request.args.get("sort-by")
+    order_dir = request.args.get("direction")
+
+    all_references = get_references(order_field, order_dir)
     return render_template("references.html", references = all_references)
 
 @app.route("/bibtex")
