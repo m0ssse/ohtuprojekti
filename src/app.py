@@ -118,7 +118,9 @@ def make_reference():
     data = {f: request.form.get(f) for f in fields}
 
     reference = Reference(ref_id, **data)
-    create_reference(reference)
+    if not create_reference(reference):
+        flash(f"The citation key {reference.citation_key} already exists.")
+        return redirect("/new_reference")
     return redirect("/")
 
 
