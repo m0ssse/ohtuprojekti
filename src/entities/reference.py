@@ -1,5 +1,6 @@
 # pylint: disable=redefined-builtin
 from reference_types import get_supported_fields
+
 class Reference:
     def __init__(self, id, ref_type, author,
         title, year, citation_key=None,
@@ -48,10 +49,7 @@ class Reference:
             if not value:
                 continue
 
-            if field == "year":
-                res += f",year = {value}"
-            else:
-                res += f",{field} = '{value}'"
+            res += f',{field} = "{value}"'
 
         res += "}"
         return res

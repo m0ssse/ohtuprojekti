@@ -1,5 +1,5 @@
 from datetime import datetime
-from flask import redirect, render_template, request, jsonify, flash
+from flask import redirect, render_template, request, jsonify, flash, make_response
 import markupsafe
 from db_helper import reset_db
 from config import app, test_env
@@ -83,13 +83,27 @@ def new_reference():
 
 @app.route("/references")
 def references():
-    all_references = get_references()
+    order_field = request.args.get("sort-by")
+    order_dir = request.args.get("direction")
+
+    all_references = get_references(order_field, order_dir)
     return render_template("references.html", references = all_references)
 
 @app.route("/bibtex")
 def bibtex_listing():
     references_to_show = get_references()
     return render_template("bibtex.html", references = references_to_show)
+
+@app.route("/download_bibtext", methods=["POST"])
+def bibtex_download():
+    if request.method == 'POST':
+        filename = request.form["bibtex-filename"]
+        file = "\n\n".join(r.get_bibtex() for r in get_references())
+        response = make_response(file)
+        response.headers["Content-Type"] = "application/x-bibtex"
+        response.headers["Content-Disposition"] = f"attachment; filename={filename}"
+    return response
+
 
 @app.route("/delete_reference/<int:ref_id>", methods=["POST"])
 def remove_reference(ref_id):
@@ -115,7 +129,9 @@ def make_reference():
     data = {f: request.form.get(f) for f in fields}
 
     reference = Reference(ref_id, **data)
-    create_reference(reference)
+    if not create_reference(reference):
+        flash(f"The citation key {reference.citation_key} already exists.")
+        return redirect("/new_reference")
     return redirect("/")
 
 
