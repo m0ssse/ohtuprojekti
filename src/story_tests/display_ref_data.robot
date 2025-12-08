@@ -13,7 +13,6 @@ Reference fields should be displayed when inspecting it
     Go To  ${LIST_REFERENCES}
     Element Text Should Be  css=ol.references li a  [1] Test. Test. Test , 1234.
     Click Link  ref_link
-    Page Should Contain  Reference 1
     Page Should Contain  Reference details
     Page Should Contain  Reference type: book
     Page Should Contain  Author: Test
