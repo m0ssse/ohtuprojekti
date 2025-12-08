@@ -1,5 +1,6 @@
 # pylint: disable=redefined-builtin
 from reference_types import get_supported_fields
+
 class Reference:
     def __init__(self, id, ref_type, author,
         title, year, citation_key=None,
