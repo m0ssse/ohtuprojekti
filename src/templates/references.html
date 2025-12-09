@@ -6,6 +6,23 @@
 <h1>All references</h1>
 
 {% if references %}
+    <form action="/references" method="GET">
+        <label for="sort-by">Sort by</label>
+        <select id="sort-by" name="sort-by">
+            <option value="author">Author</option>
+            <option value="title">Title</option>
+            <option value="year">Year</option>
+        </select>
+
+        <label for="direction">Direction</label>
+        <select id="direction" name="direction">
+            <option value="ASC">Ascending ↑</option>
+            <option value="DESC">Descending ↓</option>
+        </select>
+
+        <button type="submit">Apply</button>
+    </form>
+
     <ol class="references">
         {% for reference in references %}
         <li class="ref_item"><a id="ref_link" href="/show_reference/{{reference.id}}">
@@ -21,8 +38,7 @@
             {% elif reference.ref_type == "book" %}
                 {{ reference.author }}.
                 <em>{{ reference.title }}</em>.
-                {% if reference.publisher %} {{ reference.publisher }} {% endif %}
-                {% if reference.address %}, {{ reference.address }}{% endif %},
+                {% if reference.publisher %} {{ reference.publisher }} {% endif %},
                 {{ reference.year }}.
         
             {% elif reference.ref_type == "inproceedings" %}
@@ -38,6 +54,17 @@
             {% endif %}
         </a></li>
         {% endfor %}
+        <a href="/bibtex">Show BibTeX file</a>
+        <br>
+        <br>
+        <form action="/download_bibtext", method="POST">
+            <input type="submit" value="Download bibtext file"/>
+            <div>
+                <label for="bibtex-filename">File name</label>
+                <input type="text" name="bibtex-filename" id="bibtex-filename" value ="references.bib">
+            </div>
+        </form>
+        
     </ol>
 
 {% else %}

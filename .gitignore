@@ -1,2 +1,7 @@
 .env
 __pycache__
+.pytest_cache
+report.html
+output.xml
+log.html
+coverage.xml

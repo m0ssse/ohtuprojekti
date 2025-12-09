@@ -1,15 +1,15 @@
 name: CI
 
 env:
-  DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres
+  DATABASE_URL: ${{ secrets.DATABASE_URL }}
   TEST_ENV: true
   SECRET_KEY: sekret
 
 on:
   push:
-    branches: [main]
+    branches: [main, dev]
   pull_request:
-    branches: [main]
+    branches: [main, dev]
 
 jobs:
   build:
@@ -37,9 +37,17 @@ jobs:
       - name: Install Poetry
         run: pip install poetry
       - name: Install dependencies
-        run: poetry install        
+        run: poetry install --with dev
+      - name: Lint
+        run: PYTHONPATH=src poetry run pylint src
       - name: Run unit tests
-        run: PYTHONPATH=src poetry run pytest src/tests
+        run: PYTHONPATH=src poetry run coverage run --branch -m pytest src
+      - name: Coverage report
+        run: poetry run coverage xml
+      - name: Coverage report to Codecov
+        uses: codecov/codecov-action@v5
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       - name: Setup chromedriver
         uses: nanasess/setup-chromedriver@master
       - run: |
