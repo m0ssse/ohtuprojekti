@@ -28,6 +28,7 @@ Open And Configure Browser
         Set Selenium Speed  ${DELAY}
     END
     Open Browser  browser=${BROWSER}  options=${options}
+    Set Selenium Implicit Wait  5 seconds
 
 Reset References
     Go To  ${RESET_URL}
