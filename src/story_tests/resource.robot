@@ -28,6 +28,7 @@ Open And Configure Browser
         Set Selenium Speed  ${DELAY}
     END
     Open Browser  browser=${BROWSER}  options=${options}
+    Set Selenium Implicit Wait  5 seconds
 
 Reset References
     Go To  ${RESET_URL}
@@ -38,7 +39,7 @@ Create Test Reference
     Input Text  title  Test
     Input Text  year  1234
     Input Text  publisher  Test
-    Click Button  Add reference
+    Submit Reference And Wait
 
 Create Test Reference2
     Go To  ${NEW_REFERENCE}
@@ -46,7 +47,7 @@ Create Test Reference2
     Input Text  title  Test
     Input Text  year  4321
     Input Text  publisher  Test
-    Click Button  Add reference
+    Submit Reference And Wait
 
 Create Test Reference3
     Go To  ${NEW_REFERENCE}
@@ -54,4 +55,8 @@ Create Test Reference3
     Input Text  title  Test
     Input Text  year  4112
     Input Text  publisher  Test
+    Submit Reference And Wait
+
+Submit Reference And Wait
     Click Button  Add reference
+    Wait Until Location Contains  ${HOME_URL}  timeout=5s
