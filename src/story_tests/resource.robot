@@ -39,7 +39,7 @@ Create Test Reference
     Input Text  title  Test
     Input Text  year  1234
     Input Text  publisher  Test
-    Click Button  Add reference
+    Submit Reference And Wait
 
 Create Test Reference2
     Go To  ${NEW_REFERENCE}
@@ -47,7 +47,7 @@ Create Test Reference2
     Input Text  title  Test
     Input Text  year  4321
     Input Text  publisher  Test
-    Click Button  Add reference
+    Submit Reference And Wait
 
 Create Test Reference3
     Go To  ${NEW_REFERENCE}
@@ -55,4 +55,8 @@ Create Test Reference3
     Input Text  title  Test
     Input Text  year  4112
     Input Text  publisher  Test
+    Submit Reference And Wait
+
+Submit Reference And Wait
     Click Button  Add reference
+    Wait Until Location Contains  ${HOME_URL}  timeout=5s
