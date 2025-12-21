@@ -1,0 +1,22 @@
+﻿Ohtuprojektin raportti (Antti Moisio, Eetu Taatila, Iivari van Uden, Niko Typpö, Sara Abdullahi Yalahow)
+
+
+Sprintti 1:
+Sprintin 1 alku oli hieman kaoottinen, sillä heti sprintin alussa yksi ryhmäläinen jätti kurssin kesken. Kyseisen henkilö oli alun perin ottanut vastuulleen erilaisia projektin aloittamiseen liittyviä tehtäviä (tietokannan pystytys, GHA, CI/CD), mutta loppujen lopuksi projekti saatiin hyvin käyntiin pienen alkukankeuden jälkeen, joskin etenkin sprintin lopussa olikin hienoinen paniikki päällä. Tällä sprintillä saatiin kuitenkin aloitettua hyvä ote varsinaisten user storyjen toteutukseen, sillä tällä (kuten kaikilla muillakin) sprinteillä kaikki suunnitellut storyt saatiin tehtyä. GHA ja CI jäi kuitenkin vielä seuraavalle sprintille tehtäväksi.
+
+
+Sprintti 2:
+Toisella sprintillä suurin ongelma oli työnjako, sillä emme saaneet kunnollista user storyjen purkua taskeiksi, mistä seurasi jonkin verran päällekkäistä työtä kun useampi ryhmäläinen työsti hyvin samankaltaisia ominaisuuksia. Tälläkin sprintillä saatiin tehtyä kaikki suunnitellut user storyt ja otimme myös opiksemme ensimmäisessä katselmoinnissa olleista virheistä. Saimme myös tällä sprintillä GHA:n valmiiksi, mikä helpotti pull requestien arviointia, kun testit suoritettiin vielä GHA:lla.
+
+
+Sprintti 3:
+Tälle sprintille saimme jo huomattavasti selkeämmän työnjaon ja työkuorma oli varsin sopiva, joskin myös tällä sprintillä esiintyi hienoista loppupaniikkia, mutta ei onneksi samassa mittakaavassa kuin ensimmäisen sprintin lopussa. Asiakastapaaminen oli jossain määrin epäonnistunut katselmoijan tietokoneessa viime hetkellä sattuneiden ongelmien vuoksi sekä myöhäisen branchin mergeämisen vuoksi, sillä tämä uusi muutos tuli pullata kesken katselmoinnin paikalliseen repositorioon.
+
+
+Sprintti 4:
+Viimeinen sprintti sujui kaikin puolin mainiosti, sillä tässä vaiheessa keskityttiin lähinnä sovelluksen loppusilauksiin ja valmistauduttiin demoon, joten sprintti oli myös hieman kevyempi kuin pari edellistä. Sovitut toiminnallisuudet saatiin siis sovellukseen hyvissä ajoin, mikä mahdollisti paremman valmistautumisen demoon.
+
+
+Projektin opettavaisinta antia oli yhteisen repon ja branchien käyttö sekä muut nimenomaan projektityöskentelyyn liittyvät taidot. Etenkin merge conflictien hoitaminen oli uutta, ja sitä päästiin projektissa jonkin verran harjoittelemaan. Myöskään oman koodin testausta ei ole aiemmin tullut tehtyä läheskään näin kattavasti. Projektissa testien kirjoittaminen oli mielestämme onnistunutta, sillä kirjoitimme hyvissä ajoin useita testejä, jolloin myöhemmin voitiin kehityksessä luottaa hyvän testikattavuuden tuomaan varmuuteen koodin toiminnasta.
+Robot framework oli myös uusi tuttavuus ja se tulikin projektin myötä huomattavasti tutummaksi kuin pelkistä laskareista. Yksi teknisempi seikka, josta olisin ainakin itse mieluummin oppinut vähän enemmän oli SQLAlchemy-kirjaston käyttö. Omassa sovelluksessamme käytännössä tehtiin pelkkiä “raakoja” SQL-hakuja, mutta kirjaston dokumentaatiota tutkimalla huomasin ainakin itse, että tietokannan kanssa olisi mahdollista vuorovaikuttaa myös muunlaisten metodien avulla. Robot-testien debuggaaminen oli myös välillä hieman hankalaa, sillä monesti ongelmat johtuivat esimerkiksi siitä, että testit eivät välttämättä esimerkiksi odottaneet riittävän pitkään, jotta tietokantaoperaatiot saataisiin suoritettua. Jonkinlaisista best practices-tyyppisistä vinkeistä olisi voinut olla apua. Oli kuitenkin mielenkiintoista tutustua Scrumin toimintaan ja päästä testaamaan miten sprintit oikeasti toimivat. 
+Seuraavaa kertaa varten parantaisimme sitä, että työskentely tehtäisiin sprinteissä tasaisemmin, eikä painottuen asiakastapaamista edeltävään päivään tai aamuun. Lisäksi, vaikka kommunikaatio oli pääosin hyvää, seuraavaa kertaa varten tätä voisi vielä parantaa, esimerkiksi päällekkäisen työn välttämiseksi.
